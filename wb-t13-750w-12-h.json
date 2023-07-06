@@ -1,0 +1,38 @@
+{
+    "name": "Преобразователь частот",
+    "manufacturer": "WirenBoard",
+    "model": "WB-T13-750W-12-H",
+    "services": [
+      {
+        "type": "Switch",
+        "characteristics": [
+          {
+            "type": "On",
+            "link": {
+              "type": "Integer",
+              "topicSearch": "/devices/(t13_frequency_converter_[0-9]{3})/controls/Start-stop-reverse/meta/type",
+              "topicGet": "/devices/(1)/controls/Start-stop-reverse",
+              "topicSet": "/devices/(1)/controls/Start-stop-reverse/on",
+              "map": {
+                "false": 2,
+                "true": 1
+              }
+            }
+          }
+        ]
+      },
+      {
+        "type": "TemperatureSensor",
+        "characteristics": [
+          {
+            "name": "Температура радиатора",
+            "type": "CurrentTemperature",
+            "link": {
+              "type": "float",
+              "topicGet": "/devices/(1)/controls/Radiator temperature"
+            }
+          }
+        ]
+      }
+    ]
+  }
