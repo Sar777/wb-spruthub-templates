@@ -4,9 +4,11 @@
     "model": "WB-T13-750W-12-H",
     "services": [
       {
-        "type": "Switch",
+        "nam": "Вытяжка",
+        "type": "FanBasic",
         "characteristics": [
           {
+            "name": "Включение",
             "type": "On",
             "link": {
               "type": "Integer",
@@ -18,19 +20,31 @@
                 "true": 1
               }
             }
-          }
-        ]
-      },
-      {
-        "type": "TemperatureSensor",
-        "characteristics": [
+          },
           {
-            "name": "Температура радиатора",
-            "type": "CurrentTemperature",
+            "name": "Скорость",
+            "type": "RotationSpeed",
             "link": {
-              "type": "float",
-              "topicGet": "/devices/(1)/controls/Radiator temperature"
+              "type": "Double",
+              "topicGet": "/devices/(1)/controls/Frequency",
+              "topicSet": "/devices/(1)/controls/Frequency/on",
+              "minValue": 1,
+              "maxValue": 40,
+              "minStep": 1
             }
+          },
+          {
+            "type": "TemperatureSensor",
+            "characteristics": [
+              {
+                "name": "Температура радиатора",
+                "type": "CurrentTemperature",
+                "link": {
+                  "type": "Float",
+                  "topicGet": "/devices/(1)/controls/Radiator temperature"
+                }
+              }
+            ]
           }
         ]
       }
