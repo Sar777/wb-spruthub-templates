@@ -1,72 +1,59 @@
 {
-  "name": "Преобразователь частот",
   "manufacturer": "WirenBoard",
+  "manufacturerId": "wirenboard",
   "model": "WB-T13-750W-12-H",
+  "modelId": "/devices/(t13_frequency_converter_\\d{3})/controls/Start-stop-reverse/meta/type",
   "services": [
     {
-      "nam": "Вытяжка",
+      "name": "Вытяжка",
       "type": "FanBasic",
       "characteristics": [
         {
           "name": "Включение",
           "type": "On",
-          "link": {
-            "type": "Integer",
-            "topicSearch": "/devices/(t13_frequency_converter_[0-9]{3})/controls/Start-stop-reverse/meta/type",
-            "topicGet": "/devices/(1)/controls/Start-stop-reverse",
-            "topicSet": "/devices/(1)/controls/Start-stop-reverse/on",
-            "map": {
-              "false": 2,
-              "true": 1
+          "link": [
+            {
+              "type": "Integer",
+              "topicGet": "/devices/(1)/controls/Start-stop-reverse",
+              "topicSet": "/devices/(1)/controls/Start-stop-reverse/on",
+              "map": {
+                "false": 2,
+                "true": 1
+              }
             }
-          }
+          ]
         },
         {
+          "name": "Скорость",
           "type": "RotationSpeed",
-          "link": {
-            "type": "Integer",
-            "topicGet": "/devices/(1)/controls/Frequency",
-            "topicSet": "/devices/(1)/controls/Frequency/on",
-            "minValue": 30,
-            "maxValue": 50
-          }
+          "link": [
+            {
+              "type": "Double",
+              "topicGet": "/devices/(1)/controls/Frequency",
+              "topicSet": "/devices/(1)/controls/Frequency/on",
+              "minValue": 1,
+              "maxValue": 50,
+              "minStep": 1
+            }
+          ]
         }
       ]
-    }
-  ],
-  "options": [
-    {
-      "link": {
-        "type": "Float",
-        "topicGet": "/devices/(1)/controls/Voltage bus",
-        "inFunc": "value + ' В'"
-      },
-      "type": "String",
-      "name": "Напряжение питания",
-      "input": "status",
-      "init": false
     },
     {
-      "link": {
-        "type": "Integer",
-        "topicGet": "/devices/(1)/controls/Current",
-        "inFunc": "value + ' А'"
-      },
-      "type": "String",
-      "name": "Ток нагрузки",
-      "input": "status",
-      "init": false
-    },
-    {
-      "link": {
-        "type": "Integer",
-        "topicGet": "/devices/(1)/controls/Radiator temperature",
-        "inFunc": "value + ' °C'"
-      },
-      "type": "String",
       "name": "Температура радиатора",
-      "input": "status",
-      "init": false
+      "type": "TemperatureSensor",
+      "characteristics": [
+        {
+          "name": "Температура радиатора",
+          "type": "CurrentTemperature",
+          "link": [
+            {
+              "type": "Float",
+              "topicGet": "/devices/(1)/controls/Radiator temperature"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
